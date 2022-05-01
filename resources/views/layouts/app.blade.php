@@ -56,23 +56,29 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+                        <div class="menu-extras  topbar-custom navbar p-0">
+                            <ul class="list-inline ml-auto mb-0">
+                                <!-- User-->
+                                <li class="list-inline-item dropdown notification-list nav-user">
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                    <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
+                                        role="button" aria-haspopup="false" aria-expanded="false">
+                                        {{ Auth::user()->name }}
                                     </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ url('/logout') }}"
+                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i
+                                                class="dripicons-exit text-muted"></i>
+                                            Logout</a>
+                                        <form id="logout-form" action="{{ url('logout') }}" method="POST"
+                                            style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                         @endguest
                     </ul>
                 </div>
