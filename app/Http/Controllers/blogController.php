@@ -77,7 +77,7 @@ class blogController extends Controller
         $relation->category_id=$request->category;
         $relation->save();
         return redirect()->route('blog.index')
-                        ->with('success','Notice created successfully.');
+                        ->with('flash_success','blog created successfully.');
     }
     catch(\Exception $e){
         return $e->getMessage();
@@ -135,7 +135,7 @@ class blogController extends Controller
         try {
 
             blogAttributes::find($id)->delete();
-            return back()->with('message', 'blog deleted successfully');
+            return back()->with('flash_success', 'blog deleted successfully');
         } 
         catch (Exception $e) {
             return back()->with('flash_error', 'blog Not Found');

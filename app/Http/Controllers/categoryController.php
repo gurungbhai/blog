@@ -57,13 +57,13 @@ class categoryController extends Controller
             $category->image=$category_url;
             $category->save();
             return redirect()->route('category.index')
-                            ->with('success','Category created successfully.');
+                            ->with('flash_success','Category created successfully.');
             //
         }
         catch(\Exception $e){
             return $e->getMessage();
             return redirect()->route('category.index')
-                            ->with('error','Something went wrong.');
+                            ->with('flash_error','Something went wrong.');
         }
     }
 
@@ -109,6 +109,13 @@ class categoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            categoryAttributes::find($id)->delete();
+            return back()->with('flash_success', 'blog deleted successfully');
+        } 
+        catch (Exception $e) {
+            return back()->with('flash_error', 'blog Not Found');
+        }
     }
 }

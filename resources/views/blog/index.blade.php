@@ -31,6 +31,7 @@
                             <th width="25%">TITLE</th>
                             <th width="50%">CONTENT</th>
                             <th>CATEGORY</th>
+                            <th>Tag</th>
                             <th>Author Name</th>
                             <th>Author Email</th>
                             <th width="20%">Action</th>
@@ -42,10 +43,11 @@
                             <td>{{ $index+1}}</td>
                             <td>{{ $blog->title }}</td>
                             <td>{!! $blog->content !!}</td>
+                            <td>{{$blog->tags}}</td>
                             <td>
-                               @foreach($blog->category as $blog)
+                
                                 {{$blog->title}}
-                                @endforeach
+                               
                             </td>
                             <td>{{@$blog->author->fullName}}</td>
                             <td>{{@$blog->author->email}}</td>

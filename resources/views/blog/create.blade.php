@@ -2,6 +2,11 @@
 
 @section('content') 
  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+ {{-- CSS and JS for tagsinput and typeahead --}}
+<script type="text/javascript" src="{{asset('asset/front/js/typeahead.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('asset/front/js/bootstrap-tagsinput.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('asset/front/css/bootstrap-tagsinput.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('asset/front/css/typeaheadjs.css')}}">
  <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
@@ -59,7 +64,7 @@
                         <div class="col-10">
                             <input class="form-control form-control typeahead" type="text"
                                 style="background-color:none;" 
-                                placeholder="Type in tags" name="tags" required id="tags" autofocus>
+                                placeholder="Type in tags" name="tags" id="tags" autofocus>
                         </div>
                         
                     </div>
@@ -95,6 +100,13 @@
 
 
 <script>
+    document.addEventListener('keypress', function (e) {
+        if (e.keyCode === 13 || e.which === 13) {
+            e.preventDefault();
+            return false;
+        }
+        
+    });
 
 tinymce.init({
   selector: 'textarea#Description',
@@ -112,6 +124,32 @@ tinymce.init({
   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
 });
 
+	var tags = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.whitespace,
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		// url points to a json file that contains an array of country names, see
+		// https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+		
+	});
+	tags.initialize();
+
+	$('.typeahead').tagsinput({
+	typeaheadjs: {
+		name: 'tags',
+		source: tags.ttAdapter()
+	}
+	});
+	var restricted_zone = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.whitespace,
+		queryTokenizer: Bloodhound.tokenizers.whitespace,
+		// url points to a json file that contains an array of country names, see
+		// https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+	});
+
+
+	$('#submit').click(function(){
+		console.log($('.typeahead').val());
+	});
 
 </script>
 @endsection
