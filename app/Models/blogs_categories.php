@@ -12,4 +12,8 @@ class blogs_categories extends Model
         'category_id',
         'blog_id',
     ];
+    public function category()
+    {
+        return $this->belongsTo(categoryAttributes::class, 'category_id');
+    }
 }

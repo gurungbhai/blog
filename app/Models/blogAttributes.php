@@ -19,7 +19,7 @@ class blogAttributes extends Model
     ];
 
     public function category(){
-        return $this->belongstoMany(blogAttributes::class,'blogs_categories','category_id','blog_id');
+        return $this->belongstoMany(categoryAttributes::class,'blogs_categories','blog_id','category_id');
     }
     public function author(){
         return $this->belongsto('App\Models\authorAttributes','author_id');

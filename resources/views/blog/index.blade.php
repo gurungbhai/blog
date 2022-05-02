@@ -43,12 +43,15 @@
                             <td>{{ $index+1}}</td>
                             <td>{{ $blog->title }}</td>
                             <td>{!! $blog->content !!}</td>
-                            <td>{{$blog->tags}}</td>
+                           
                             <td>
-                
-                                {{$blog->title}}
+                                @foreach ($blog->category as $category)
+                                    {{ $category->title }}
+                                @endforeach
+                               
                                
                             </td>
+                             <td>{{$blog->tags}}</td>
                             <td>{{@$blog->author->fullName}}</td>
                             <td>{{@$blog->author->email}}</td>
                             
